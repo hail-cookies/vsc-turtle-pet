@@ -6,9 +6,10 @@ export class Food extends Spawnable {
 
     onSpawn(data) {
         this.element.textContent = this.icons[Math.floor(Math.random() * this.icons.length)];
-        
+
         // add food and enter classes before showing so we get a drop-in animation
         this.element.classList.add('food', 'enter');
+        this.element.offsetHeight; // force reflow before show
         super.onSpawn(data);
 
         // match the positioning of the turtle: anchor to the bottom with a percentage
