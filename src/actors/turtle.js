@@ -106,11 +106,11 @@ export class Turtle {
      * Initializes the growth cycle.
      */
     initGrowth() {
-        this.foodValue = 0.5; // How much fat each piece food grants if Mono is size 1.
-        this.timeToDigest = 30; // The amount of seconds required, to consume 1 fat.
+        this.foodValue = 0.75; // How much fat each piece food grants if Mono is size 1.
+        this.timeToDigest = 60; // The amount of seconds required, to consume 1 fat.
         this.growthRate = 0.1; // The size increase possible with 1 fat.
         this.fat = 1; // The amount of fat stored at the start of the game.
-        this.maxDiet = -1; // The lowest amount of fat possible. Negative fat causes the turtle to shrink.
+        this.maxDiet = -0.1; // The lowest amount of fat possible. Negative fat causes the turtle to shrink.
         this.growthIntervalDuration = 0.1;
         this.totalGrow = 0;
 
