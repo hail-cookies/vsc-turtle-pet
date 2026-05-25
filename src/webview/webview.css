@@ -130,11 +130,53 @@ body.vscode-light {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
-    z-index: 11;
+    z-index: 9;
 }
 
 .spawnable.show {
     opacity: 1;
+}
+
+/* shadow under food spawnables */
+.spawnable.food {
+    --shadow-size: 32px;
+    pointer-events: none;
+}
+
+.spawnable.food::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--shadow-size);
+    height: calc(var(--shadow-size) / 6);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 70%, rgba(0,0,0,0) 100%);
+    border-radius: 50%;
+    bottom: -6px;
+    filter: blur(4px);
+    z-index: 8; /* below the spawnable*/
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.spawnable.food.show::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* drop-in animation for food */
+.spawnable.food {
+    transition: transform 0.35s cubic-bezier(.2,.9,.2,1);
+    transform: translateY(0);
+}
+
+.spawnable.food.show {
+    transform: translateY(0);
+}
+
+.spawnable.food.enter {
+    transform: translateY(-18px);
 }
 
 .disco-ball {
