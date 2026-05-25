@@ -2,7 +2,7 @@ import { Spawnable } from "../spawnable.js";
 import { Events } from "../../events/events.js";
 
 export class Food extends Spawnable {
-    icons = ['🥬', '🍎', '🥕', '🌽', '🍇', '🍉'];
+    icons = ['🥬', '🥕', '🌿', '🍀', '🌺', '🍓', '🌹'];
 
     onSpawn(data) {
         this.element.textContent = this.icons[Math.floor(Math.random() * this.icons.length)];
