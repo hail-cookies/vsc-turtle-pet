@@ -26,7 +26,8 @@ export class Turtle {
         this.element.style.left = this.posX + 'px';
         this.element.style.bottom = '10%';
         this.element.style.top = 'auto';
-        this.element.style.transform = 'scaleX(-1)';
+        this.dirX = -1; 
+        this.setSize(1); 
 
         // onPet on turtle: show heart and wake up to walk somewhere new
         this.element.onclick = (mouseEvent) => {
@@ -186,7 +187,12 @@ export class Turtle {
         value = Math.max(Math.min(value, this.maxSize), this.minSize);
         this.size = value;
         this.speed = this.baseSpeed * this.size;
-        this.element.style.transform = 'scale(' + (this.size * Math.sign(this.dirX)) + ',' + this.size + ')';
+
+        // only upscale width, height is scaled via css auto, 
+        // to avoid issues when switching between different turtle images
+        // e.g. partying/hiding
+        this.element.style.width = (this.baseWidth * this.size) + 'px';
+        this.element.style.transform = `scaleX(${Math.sign(this.dirX)})`;
     }
 
     isTouching(posX, marginLeft = 0, marginRight = 0) {
