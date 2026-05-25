@@ -51,8 +51,9 @@ export class StateWalking extends State {
         let moveX = this.turtle.posX + Math.sign(this.turtle.dx) * speed;
 
         if(!PlayGround.isInbounds(moveX, 10, this.turtle.getWidth())) {
-            // stop at edges
-            this.turtle.dx = 0; 
+            // target is now out of bounds, pick a new one
+            this.targetX = this.getWalkingTargetX();
+            this.turtle.setDirection(this.targetX > this.turtle.posX ? -1 : 1);
         } else {
             // move towards target
             this.turtle.posX = moveX;
@@ -71,7 +72,10 @@ export class StateWalking extends State {
     // (otherwise he walks off the screen)
     getWalkingTargetX() {
         let dinner = this.turtle.dinner;
-        if(dinner) {
+
+        // only walk towards dinner if its in bounds
+        // otherwise mono keeps walking against wall til its despawned (?)
+        if (dinner && PlayGround.isInbounds(dinner.posX, 10, this.turtle.getWidth())) {
             return dinner.posX;
         } else {
             return 10 + (Math.random() * (PlayGround.getHorizontalLimit(20)));

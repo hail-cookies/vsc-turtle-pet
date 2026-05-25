@@ -48,6 +48,14 @@ export class Turtle {
 
         this.initTurtleMachine();
         this.initGrowth();
+
+        // avoid walking out of bounds on resize 
+        // (shove him back into frame)
+        window.addEventListener('resize', () => {
+            const limit = PlayGround.getHorizontalLimit(this.getWidth());
+            this.posX = Math.max(10, Math.min(this.posX, limit));
+            this.element.style.left = this.posX + 'px';
+        });
     }
 
     isClicked(mouseEvent) {
@@ -68,8 +76,10 @@ export class Turtle {
         // also start walking if turtle is clicked while resting
         this.stateRest.addEventTransition('onPet', this.stateWalking);
 
-        // move towards dinner, when it is served. this only happens when already walking, because the turtle is lazy
+        // move towards dinner, when it is served. 
         this.stateWalking.addEventTransition('dinnerIsServed', this.stateWalking);
+        this.stateRest.addEventTransition('dinnerIsServed', this.stateWalking);
+
         // eat
         this.stateWalking.addTransition(this.stateRest, (data) => this.tryEatDinner());
         // when reaching destination, rest for a bit.
